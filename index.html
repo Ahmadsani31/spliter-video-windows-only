@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self'; style-src 'self' 'unsafe-inline';"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>VidSplit</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div>
+        <div class="title">Video - Split</div>
+        <div class="subtitle">
+          Split MP4/MKV per 5 menit (default) atau bisa atur sesukamu.  
+        </div>
+      </div>
+      <div class="badge">Adsa | Windows</div>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Input</h2>
+
+        <div class="row">
+          <button id="btnPickFiles">Pilih Video…</button>
+          <button id="btnClear" class="secondary">Clear</button>
+        </div>
+
+        <div id="dropzone" class="dropzone">
+          <div class="dz-title">Drag & Drop video ke sini</div>
+          <div class="dz-hint">Support: .mp4, .mkv</div>
+        </div>
+
+        <div class="listWrap">
+          <div class="listHeader">
+            <span>Daftar Video</span>
+            <span id="countFiles" class="muted">0 file</span>
+          </div>
+          <ul id="fileList" class="fileList"></ul>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Output & Settings</h2>
+
+        <div class="field">
+          <label>Output folder</label>
+          <div class="row">
+            <input
+              id="outDir"
+              type="text"
+              placeholder="Pilih folder output…"
+              readonly
+            />
+            <button id="btnPickOut" class="secondary">Browse…</button>
+          </div>
+          <div class="hint">Default: membuat subfolder per video (rapi).</div>
+          <label class="checkbox">
+            <input id="chkFlat" type="checkbox" />
+            Simpan semua part langsung di folder output (tanpa subfolder)
+          </label>
+        </div>
+
+        <div class="field">
+          <label>Durasi per part</label>
+          <div class="row">
+            <input id="minutes" type="number" min="1" value="5" />
+            <span class="unit">menit</span>
+          </div>
+          <div class="hint">
+            Mode copy: batas 5 menit bisa geser sedikit (ikut keyframe).
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 12px">
+          <button id="btnCheck" class="secondary">
+            <span id="checkSpinner" class="spinner hidden "></span>
+            <span id="checkText">Cek FFmpeg Bundled</span>
+          </button>
+          <div id="ffStatus" class="muted"></div>
+        </div>
+
+        <div class="row" style="margin-top: 12px">
+          <button id="btnStart" class="primary">Proses Split Video</button>
+        </div>
+
+        <div class="progressBox">
+          <div class="progressLine">
+            <span id="progressText" class="muted">Idle</span>
+            <span id="progressCount" class="muted"></span>
+          </div>
+          <div class="bar">
+            <div id="barFill" class="fill"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card full">
+        <h2>Log</h2>
+        <div class="log" id="log"></div>
+      </section>
+    </main>
+
+    <script src="./renderer.js"></script>
+  </body>
+</html>
